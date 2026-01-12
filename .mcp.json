@@ -3,74 +3,112 @@
     "jira": {
       "type": "stdio",
       "command": "npx",
-      "args": ["-y", "@anthropic/mcp-jira"],
+      "args": [
+        "-y",
+        "@anthropic/mcp-jira"
+      ],
       "env": {
         "JIRA_HOST": "${JIRA_HOST}",
         "JIRA_EMAIL": "${JIRA_EMAIL}",
         "JIRA_API_TOKEN": "${JIRA_API_TOKEN}"
       }
     },
-
     "github": {
       "type": "stdio",
       "command": "npx",
-      "args": ["-y", "@anthropic/mcp-github"],
+      "args": [
+        "-y",
+        "@anthropic/mcp-github"
+      ],
       "env": {
         "GITHUB_TOKEN": "${GITHUB_TOKEN}"
       }
     },
-
     "linear": {
       "type": "stdio",
       "command": "npx",
-      "args": ["-y", "@anthropic/mcp-linear"],
+      "args": [
+        "-y",
+        "@anthropic/mcp-linear"
+      ],
       "env": {
         "LINEAR_API_KEY": "${LINEAR_API_KEY}"
       }
     },
-
     "sentry": {
       "type": "stdio",
       "command": "npx",
-      "args": ["-y", "@anthropic/mcp-sentry"],
+      "args": [
+        "-y",
+        "@anthropic/mcp-sentry"
+      ],
       "env": {
         "SENTRY_AUTH_TOKEN": "${SENTRY_AUTH_TOKEN}",
         "SENTRY_ORG": "${SENTRY_ORG}"
       }
     },
-
     "postgres": {
       "type": "stdio",
       "command": "npx",
-      "args": ["-y", "@anthropic/mcp-postgres"],
+      "args": [
+        "-y",
+        "@anthropic/mcp-postgres"
+      ],
       "env": {
         "DATABASE_URL": "${DATABASE_URL}"
       }
     },
-
     "slack": {
       "type": "stdio",
       "command": "npx",
-      "args": ["-y", "@anthropic/mcp-slack"],
+      "args": [
+        "-y",
+        "@anthropic/mcp-slack"
+      ],
       "env": {
         "SLACK_BOT_TOKEN": "${SLACK_BOT_TOKEN}",
         "SLACK_TEAM_ID": "${SLACK_TEAM_ID}"
       }
     },
-
     "notion": {
       "type": "stdio",
       "command": "npx",
-      "args": ["-y", "@anthropic/mcp-notion"],
+      "args": [
+        "-y",
+        "@anthropic/mcp-notion"
+      ],
       "env": {
         "NOTION_API_KEY": "${NOTION_API_KEY}"
       }
     },
-
     "memory": {
       "type": "stdio",
       "command": "npx",
-      "args": ["-y", "@anthropic/mcp-memory"]
+      "args": [
+        "-y",
+        "@anthropic/mcp-memory"
+      ]
+    },
+    "gcloud": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@google-cloud/gcloud-mcp"
+      ]
+    },
+    "google-workspace": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@iflow-mcp/google-workspace-mcp-server"
+      ],
+      "env": {
+        "GOOGLE_CLIENT_ID": "${GOOGLE_CLIENT_ID}",
+        "GOOGLE_CLIENT_SECRET": "${GOOGLE_CLIENT_SECRET}",
+        "GOOGLE_REFRESH_TOKEN": "${GOOGLE_REFRESH_TOKEN}"
+      }
     }
   }
 }
