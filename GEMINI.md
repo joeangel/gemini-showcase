@@ -78,3 +78,14 @@ npm run typecheck    # Check types
 npm run commit       # Interactive commit
 gh pr create         # Create PR
 ```
+
+## Workflows
+
+This project enables Gemini agentic workflows via GitHub Actions:
+
+- **Review**: Auto-reviews PRs. Trigger via `/review`.
+- **Fix**: Auto-fixes issues. Trigger via `/fix`.
+- **Triage**: Auto-labels issues. Trigger via `/triage`.
+- **Chat**: Mention `@gemini` in any comment to chat.
+
+> See [docs/workflows.md](docs/workflows.md) for full details.
