@@ -641,7 +641,7 @@ Skills are markdown documents that teach Gemini project-specific patterns and co
 | `name` | **Yes** | 64 chars | Lowercase letters, numbers, and hyphens only. Should match directory name. |
 | `description` | **Yes** | 1024 chars | What the skill does and when to use it. Gemini uses this to decide when to apply the skill. |
 | `allowed-tools` | No | - | Comma-separated list of tools Gemini can use (e.g., `Read, Grep, Bash(npm:*)`). |
-| `model` | No | - | Specific model to use (e.g., `gemini-1.5-pro`). |
+| `model` | No | - | Specific model to use (e.g., `gemini-1.5-flash`). |
 
 #### SKILL.md Format
 
@@ -650,7 +650,7 @@ Skills are markdown documents that teach Gemini project-specific patterns and co
 name: skill-name
 description: What this skill does and when to use it. Include keywords users would mention.
 allowed-tools: Read, Grep, Glob
-model: gemini-1.5-pro
+model: gemini-1.5-flash
 ---
 
 # Skill Title
@@ -814,7 +814,7 @@ jobs:
       - uses: google/gemini-code-action@beta
         with:
           google_api_key: ${{ secrets.GEMINI_API_KEY }}
-          model: gemini-1.5-pro
+          model: gemini-1.5-flash
           prompt: |
             Review this PR using .gemini/agents/code-reviewer.md standards.
             Run `git diff origin/main...HEAD` to see changes.

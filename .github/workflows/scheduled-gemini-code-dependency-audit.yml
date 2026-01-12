@@ -66,7 +66,7 @@ jobs:
         uses: google/gemini-code-action@beta
         with:
           google_api_key: ${{ secrets.GEMINI_API_KEY }}
-          model: gemini-1.5-pro
+          model: gemini-1.5-flash
           timeout_minutes: 45
           base_branch: main
           branch_prefix: gemini/deps-update-
