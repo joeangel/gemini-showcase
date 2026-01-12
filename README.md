@@ -269,6 +269,8 @@ MCP servers run locally and provide Gemini with tools to interact with external 
 }
 ```
 
+> **Note:** The `@anthropic/` namespace is used here as these are standard, open-source MCP server implementations. While originally developed by Anthropic, they are compatible with any client supporting the MCP protocol.
+
 **Fields:**
 
 | Field | Required | Description |
@@ -639,7 +641,7 @@ Skills are markdown documents that teach Gemini project-specific patterns and co
 | `name` | **Yes** | 64 chars | Lowercase letters, numbers, and hyphens only. Should match directory name. |
 | `description` | **Yes** | 1024 chars | What the skill does and when to use it. Gemini uses this to decide when to apply the skill. |
 | `allowed-tools` | No | - | Comma-separated list of tools Gemini can use (e.g., `Read, Grep, Bash(npm:*)`). |
-| `model` | No | - | Specific model to use (e.g., `gemini-sonnet-4-20250514`). |
+| `model` | No | - | Specific model to use (e.g., `gemini-1.5-pro`). |
 
 #### SKILL.md Format
 
@@ -648,7 +650,7 @@ Skills are markdown documents that teach Gemini project-specific patterns and co
 name: skill-name
 description: What this skill does and when to use it. Include keywords users would mention.
 allowed-tools: Read, Grep, Glob
-model: gemini-sonnet-4-20250514
+model: gemini-1.5-pro
 ---
 
 # Skill Title
@@ -809,10 +811,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: anthropics/gemini-code-action@beta
+      - uses: google/gemini-code-action@beta
         with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          model: gemini-opus-4-5-20251101
+          google_api_key: ${{ secrets.GEMINI_API_KEY }}
+          model: gemini-1.5-pro
           prompt: |
             Review this PR using .gemini/agents/code-reviewer.md standards.
             Run `git diff origin/main...HEAD` to see changes.
@@ -828,7 +830,7 @@ jobs:
 
 ### Setup Required
 
-Add `ANTHROPIC_API_KEY` to your repository secrets:
+Add `GEMINI_API_KEY` to your repository secrets:
 - Settings → Secrets and variables → Actions → New repository secret
 
 ### Cost Estimate
@@ -933,12 +935,14 @@ Commit everything except:
 
 ## Learn More
 
-- [Gemini Code Documentation](https://docs.anthropic.com/en/docs/gemini-code)
-- [Gemini Code Action](https://github.com/anthropics/gemini-code-action) - GitHub Action
-- [Anthropic API](https://docs.anthropic.com/en/api)
+- [Gemini API Documentation](https://ai.google.dev/gemini-api/docs)
+- [Google GitHub Actions](https://github.com/google-github-actions)
+- [Gemini API Reference](https://ai.google.dev/api)
 
 ---
 
 ## License
 
 MIT - Use this as a template for your own projects.
+
+> **Notice:** Portions of this software are derived from [ChrisWiles/claude-code-showcase](https://github.com/ChrisWiles/claude-code-showcase), copyright (c) 2025 Chris Wiles, licensed under the MIT License.

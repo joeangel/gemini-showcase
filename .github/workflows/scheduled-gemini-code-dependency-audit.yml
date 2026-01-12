@@ -65,7 +65,7 @@ jobs:
         if: steps.check-outdated.outputs.has_outdated == 'true' || steps.security-audit.outputs.vulnerabilities != '0'
         uses: google/gemini-code-action@beta
         with:
-          google_api_key: ${{ secrets.GOOGLE_API_KEY }}
+          google_api_key: ${{ secrets.GEMINI_API_KEY }}
           model: gemini-1.5-pro
           timeout_minutes: 45
           base_branch: main
