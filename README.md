@@ -1,29 +1,29 @@
-# Claude Code Project Configuration Showcase
+# Gemini Code Project Configuration Showcase
 
-> Most software engineers are seriously sleeping on how good LLM agents are right now, especially something like Claude Code.
+> Most software engineers are seriously sleeping on how good LLM agents are right now, especially something like Gemini Code.
 
-Once you've got Claude Code set up, you can point it at your codebase, have it learn your conventions, pull in best practices, and refine everything until it's basically operating like a super-powered teammate. **The real unlock is building a solid set of reusable "[skills](#skills---domain-knowledge)" plus a few "[agents](#agents---specialized-assistants)" for the stuff you do all the time.**
+Once you've got Gemini Code set up, you can point it at your codebase, have it learn your conventions, pull in best practices, and refine everything until it's basically operating like a super-powered teammate. **The real unlock is building a solid set of reusable "[skills](#skills---domain-knowledge)" plus a few "[agents](#agents---specialized-assistants)" for the stuff you do all the time.**
 
 ### What This Looks Like in Practice
 
-**Custom UI Library?** We have a [skill that explains exactly how to use it](.claude/skills/core-components/SKILL.md). Same for [how we write tests](.claude/skills/testing-patterns/SKILL.md), [how we structure GraphQL](.claude/skills/graphql-schema/SKILL.md), and basically how we want everything done in our repo. So when Claude generates code, it already matches our patterns and standards out of the box.
+**Custom UI Library?** We have a [skill that explains exactly how to use it](.gemini/skills/core-components/SKILL.md). Same for [how we write tests](.gemini/skills/testing-patterns/SKILL.md), [how we structure GraphQL](.gemini/skills/graphql-schema/SKILL.md), and basically how we want everything done in our repo. So when Gemini generates code, it already matches our patterns and standards out of the box.
 
-**Automated Quality Gates?** We use [hooks](.claude/settings.json) to auto-format code, run tests when test files change, type-check TypeScript, and even [block edits on the main branch](.claude/settings.md). Claude Code also created a bunch of ESLint automation, including custom rules and lint checks that catch issues before they hit review.
+**Automated Quality Gates?** We use [hooks](.gemini/settings.json) to auto-format code, run tests when test files change, type-check TypeScript, and even [block edits on the main branch](.gemini/settings.md). Gemini Code also created a bunch of ESLint automation, including custom rules and lint checks that catch issues before they hit review.
 
-**Deep Code Review?** We have a [code review agent](.claude/agents/code-reviewer.md) that Claude runs after changes are made. It follows a detailed checklist covering TypeScript strict mode, error handling, loading states, mutation patterns, and more. When a PR goes up, we have a [GitHub Action](.github/workflows/pr-claude-code-review.yml) that does a full PR review automatically.
+**Deep Code Review?** We have a [code review agent](.gemini/agents/code-reviewer.md) that Gemini runs after changes are made. It follows a detailed checklist covering TypeScript strict mode, error handling, loading states, mutation patterns, and more. When a PR goes up, we have a [GitHub Action](.github/workflows/pr-gemini-code-review.yml) that does a full PR review automatically.
 
 **Scheduled Maintenance?** We've got GitHub workflow agents that run on a schedule:
-- [Monthly docs sync](.github/workflows/scheduled-claude-code-docs-sync.yml) - Reads commits from the last month and makes sure docs are still aligned
-- [Weekly code quality](.github/workflows/scheduled-claude-code-quality.yml) - Reviews random directories and auto-fixes issues
-- [Biweekly dependency audit](.github/workflows/scheduled-claude-code-dependency-audit.yml) - Safe dependency updates with test verification
+- [Monthly docs sync](.github/workflows/scheduled-gemini-code-docs-sync.yml) - Reads commits from the last month and makes sure docs are still aligned
+- [Weekly code quality](.github/workflows/scheduled-gemini-code-quality.yml) - Reviews random directories and auto-fixes issues
+- [Biweekly dependency audit](.github/workflows/scheduled-gemini-code-dependency-audit.yml) - Safe dependency updates with test verification
 
-**Intelligent Skill Suggestions?** We built a [skill evaluation system](#skill-evaluation-hooks) that analyzes every prompt and automatically suggests which skills Claude should activate based on keywords, file paths, and intent patterns.
+**Intelligent Skill Suggestions?** We built a [skill evaluation system](#skill-evaluation-hooks) that analyzes every prompt and automatically suggests which skills Gemini should activate based on keywords, file paths, and intent patterns.
 
 A ton of maintenance and quality work is just... automated. It runs ridiculously smoothly.
 
-**JIRA/Linear Integration?** We connect Claude Code to our ticket system via [MCP servers](.mcp.json). Now Claude can read the ticket, understand the requirements, implement the feature, update the ticket status, and even create new tickets if it finds bugs along the way. The [`/ticket` command](.claude/commands/ticket.md) handles the entire workflow—from reading acceptance criteria to linking the PR back to the ticket.
+**JIRA/Linear Integration?** We connect Gemini Code to our ticket system via [MCP servers](.mcp.json). Now Gemini can read the ticket, understand the requirements, implement the feature, update the ticket status, and even create new tickets if it finds bugs along the way. The [`/ticket` command](.gemini/commands/ticket.md) handles the entire workflow—from reading acceptance criteria to linking the PR back to the ticket.
 
-We even use Claude Code for ticket triage. It reads the ticket, digs into the codebase, and leaves a comment with what it thinks should be done. So when an engineer picks it up, they're basically starting halfway through already.
+We even use Gemini Code for ticket triage. It reads the ticket, digs into the codebase, and leaves a comment with what it thinks should be done. So when an engineer picks it up, they're basically starting halfway through already.
 
 **There is so much low-hanging fruit here that it honestly blows my mind people aren't all over it.**
 
@@ -34,7 +34,7 @@ We even use Claude Code for ticket triage. It reads the ticket, digs into the co
 - [Directory Structure](#directory-structure)
 - [Quick Start](#quick-start)
 - [Configuration Reference](#configuration-reference)
-  - [CLAUDE.md - Project Memory](#claudemd---project-memory)
+  - [GEMINI.md - Project Memory](#geminimd---project-memory)
   - [settings.json - Hooks & Environment](#settingsjson---hooks--environment)
   - [MCP Servers - External Integrations](#mcp-servers---external-integrations)
   - [LSP Servers - Real-Time Code Intelligence](#lsp-servers---real-time-code-intelligence)
@@ -52,9 +52,9 @@ We even use Claude Code for ticket triage. It reads the ticket, digs into the co
 
 ```
 your-project/
-├── CLAUDE.md                      # Project memory (alternative location)
+├── GEMINI.md                      # Project memory (alternative location)
 ├── .mcp.json                      # MCP server configuration (JIRA, GitHub, etc.)
-├── .claude/
+├── .gemini/
 │   ├── settings.json              # Hooks, environment, permissions
 │   ├── settings.local.json        # Personal overrides (gitignored)
 │   ├── settings.md                # Human-readable hook documentation
@@ -87,25 +87,25 @@ your-project/
 │
 └── .github/
     └── workflows/
-        ├── pr-claude-code-review.yml           # Auto PR review
-        ├── scheduled-claude-code-docs-sync.yml # Monthly docs sync
-        ├── scheduled-claude-code-quality.yml   # Weekly quality review
-        └── scheduled-claude-code-dependency-audit.yml
+        ├── pr-gemini-code-review.yml           # Auto PR review
+        ├── scheduled-gemini-code-docs-sync.yml # Monthly docs sync
+        ├── scheduled-gemini-code-quality.yml   # Weekly quality review
+        └── scheduled-gemini-code-dependency-audit.yml
 ```
 
 ---
 
 ## Quick Start
 
-### 1. Create the `.claude` directory
+### 1. Create the `.gemini` directory
 
 ```bash
-mkdir -p .claude/{agents,commands,hooks,skills}
+mkdir -p .gemini/{agents,commands,hooks,skills}
 ```
 
-### 2. Add a CLAUDE.md file
+### 2. Add a GEMINI.md file
 
-Create `CLAUDE.md` in your project root with your project's key information. See [CLAUDE.md](CLAUDE.md) for a complete example.
+Create `GEMINI.md` in your project root with your project's key information. See [GEMINI.md](GEMINI.md) for a complete example.
 
 ```markdown
 # Project Name
@@ -128,7 +128,7 @@ Create `CLAUDE.md` in your project root with your project's key information. See
 
 ### 3. Add settings.json with hooks
 
-Create `.claude/settings.json`. See [settings.json](.claude/settings.json) for a full example with auto-formatting, testing, and more.
+Create `.gemini/settings.json`. See [settings.json](.gemini/settings.json) for a full example with auto-formatting, testing, and more.
 
 ```json
 {
@@ -151,7 +151,7 @@ Create `.claude/settings.json`. See [settings.json](.claude/settings.json) for a
 
 ### 4. Add your first skill
 
-Create `.claude/skills/testing-patterns/SKILL.md`. See [testing-patterns/SKILL.md](.claude/skills/testing-patterns/SKILL.md) for a comprehensive example.
+Create `.gemini/skills/testing-patterns/SKILL.md`. See [testing-patterns/SKILL.md](.gemini/skills/testing-patterns/SKILL.md) for a comprehensive example.
 
 ```markdown
 ---
@@ -171,20 +171,20 @@ description: Jest testing patterns for this project. Use when writing tests, cre
 - Mock external dependencies, not internal modules
 ```
 
-> **Tip:** The `description` field is critical—Claude uses it to decide when to apply the skill. Include keywords users would naturally mention.
+> **Tip:** The `description` field is critical—Gemini uses it to decide when to apply the skill. Include keywords users would naturally mention.
 
 ---
 
 ## Configuration Reference
 
-### CLAUDE.md - Project Memory
+### GEMINI.md - Project Memory
 
-CLAUDE.md is Claude's persistent memory that loads automatically at session start.
+GEMINI.md is Gemini's persistent memory that loads automatically at session start.
 
 **Locations (in order of precedence):**
-1. `.claude/CLAUDE.md` (project, in .claude folder)
-2. `./CLAUDE.md` (project root)
-3. `~/.claude/CLAUDE.md` (user-level, all projects)
+1. `.gemini/GEMINI.md` (project, in .gemini folder)
+2. `./GEMINI.md` (project root)
+3. `~/.gemini/GEMINI.md` (user-level, all projects)
 
 **What to include:**
 - Project stack and architecture overview
@@ -193,7 +193,7 @@ CLAUDE.md is Claude's persistent memory that loads automatically at session star
 - Important directories and their purposes
 - Critical rules and constraints
 
-**📄 Example:** [CLAUDE.md](CLAUDE.md)
+**📄 Example:** [GEMINI.md](GEMINI.md)
 
 ---
 
@@ -201,9 +201,9 @@ CLAUDE.md is Claude's persistent memory that loads automatically at session star
 
 The main configuration file for hooks, environment variables, and permissions.
 
-**Location:** `.claude/settings.json`
+**Location:** `.gemini/settings.json`
 
-**📄 Example:** [settings.json](.claude/settings.json) | [Human-readable docs](.claude/settings.md)
+**📄 Example:** [settings.json](.gemini/settings.json) | [Human-readable docs](.gemini/settings.md)
 
 #### Hook Events
 
@@ -212,7 +212,7 @@ The main configuration file for hooks, environment variables, and permissions.
 | `PreToolUse` | Before tool execution | Block edits on main, validate commands |
 | `PostToolUse` | After tool completes | Auto-format, run tests, lint |
 | `UserPromptSubmit` | User submits prompt | Add context, suggest skills |
-| `Stop` | Agent finishes | Decide if Claude should continue |
+| `Stop` | Agent finishes | Decide if Gemini should continue |
 
 #### Hook Response Format
 
@@ -235,7 +235,7 @@ The main configuration file for hooks, environment variables, and permissions.
 
 ### MCP Servers - External Integrations
 
-MCP (Model Context Protocol) servers let Claude Code connect to external tools like JIRA, GitHub, Slack, databases, and more. This is how you enable workflows like "read a ticket, implement it, and update the ticket status."
+MCP (Model Context Protocol) servers let Gemini Code connect to external tools like JIRA, GitHub, Slack, databases, and more. This is how you enable workflows like "read a ticket, implement it, and update the ticket status."
 
 **Location:** `.mcp.json` (project root, committed to git for team sharing)
 
@@ -245,12 +245,12 @@ MCP (Model Context Protocol) servers let Claude Code connect to external tools l
 
 ```
 ┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
-│   Claude Code   │────▶│   MCP Server    │────▶│  External API   │
+│   Gemini Code   │────▶│   MCP Server    │────▶│  External API   │
 │                 │◀────│  (local bridge) │◀────│  (JIRA, GitHub) │
 └─────────────────┘     └─────────────────┘     └─────────────────┘
 ```
 
-MCP servers run locally and provide Claude with tools to interact with external services. When you configure a JIRA MCP server, Claude gets tools like `jira_get_issue`, `jira_update_issue`, `jira_create_issue`, etc.
+MCP servers run locally and provide Gemini with tools to interact with external services. When you configure a JIRA MCP server, Gemini gets tools like `jira_get_issue`, `jira_update_issue`, `jira_create_issue`, etc.
 
 #### .mcp.json Format
 
@@ -306,11 +306,11 @@ MCP servers run locally and provide Claude with tools to interact with external 
 - Create new tickets for bugs found during development
 - Link PRs to tickets
 
-**Example workflow with [`/ticket` command](.claude/commands/ticket.md):**
+**Example workflow with [`/ticket` command](.gemini/commands/ticket.md):**
 ```
 You: /ticket PROJ-123
 
-Claude:
+Gemini:
 1. Fetching PROJ-123 from JIRA...
    "Add user profile avatar upload"
 
@@ -438,9 +438,9 @@ Or approve specific servers:
 
 ### LSP Servers - Real-Time Code Intelligence
 
-LSP (Language Server Protocol) gives Claude real-time understanding of your code—type information, errors, completions, and navigation. Instead of just reading text, Claude can "see" your code the way your IDE does.
+LSP (Language Server Protocol) gives Gemini real-time understanding of your code—type information, errors, completions, and navigation. Instead of just reading text, Gemini can "see" your code the way your IDE does.
 
-**Why this matters:** When you edit TypeScript, Claude immediately knows if you introduced a type error. When you reference a function, Claude can jump to its definition. This dramatically improves code generation quality.
+**Why this matters:** When you edit TypeScript, Gemini immediately knows if you introduced a type error. When you reference a function, Gemini can jump to its definition. This dramatically improves code generation quality.
 
 #### Enabling LSP
 
@@ -449,13 +449,13 @@ LSP support is enabled through plugins in `settings.json`:
 ```json
 {
   "enabledPlugins": {
-    "typescript-lsp@claude-plugins-official": true,
-    "pyright-lsp@claude-plugins-official": true
+    "typescript-lsp@gemini-plugins-official": true,
+    "pyright-lsp@gemini-plugins-official": true
   }
 }
 ```
 
-#### What Claude Gets from LSP
+#### What Gemini Gets from LSP
 
 | Feature | Description |
 |---------|-------------|
@@ -505,21 +505,21 @@ If LSP isn't working:
 
 2. **Enable debug logging:**
    ```bash
-   claude --enable-lsp-logging
+   gemini --enable-lsp-logging
    ```
 
 3. **Check plugin status:**
    ```bash
-   claude /plugin  # View Errors tab
+   gemini /plugin  # View Errors tab
    ```
 
 ---
 
 ### Skill Evaluation Hooks
 
-One of our most powerful automations is the **skill evaluation system**. It runs on every prompt submission and intelligently suggests which skills Claude should activate.
+One of our most powerful automations is the **skill evaluation system**. It runs on every prompt submission and intelligently suggests which skills Gemini should activate.
 
-**📄 Files:** [skill-eval.sh](.claude/hooks/skill-eval.sh) | [skill-eval.js](.claude/hooks/skill-eval.js) | [skill-rules.json](.claude/hooks/skill-rules.json)
+**📄 Files:** [skill-eval.sh](.gemini/hooks/skill-eval.sh) | [skill-eval.js](.gemini/hooks/skill-eval.js) | [skill-rules.json](.gemini/hooks/skill-rules.json)
 
 #### How It Works
 
@@ -567,7 +567,7 @@ When you submit a prompt, the `UserPromptSubmit` hook triggers our skill evaluat
 
 #### Configuration
 
-Skills are defined in [skill-rules.json](.claude/hooks/skill-rules.json):
+Skills are defined in [skill-rules.json](.gemini/hooks/skill-rules.json):
 
 ```json
 {
@@ -592,7 +592,7 @@ Skills are defined in [skill-rules.json](.claude/hooks/skill-rules.json):
 
 1. Copy the hooks to your project:
    ```bash
-   cp -r .claude/hooks/ your-project/.claude/hooks/
+   cp -r .gemini/hooks/ your-project/.gemini/hooks/
    ```
 
 2. Add the hook to your `settings.json`:
@@ -604,7 +604,7 @@ Skills are defined in [skill-rules.json](.claude/hooks/skill-rules.json):
            "hooks": [
              {
                "type": "command",
-               "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/skill-eval.sh",
+               "command": "\"$CLAUDE_PROJECT_DIR\"/.gemini/hooks/skill-eval.sh",
                "timeout": 5
              }
            ]
@@ -614,32 +614,32 @@ Skills are defined in [skill-rules.json](.claude/hooks/skill-rules.json):
    }
    ```
 
-3. Customize [skill-rules.json](.claude/hooks/skill-rules.json) with your project's skills and triggers.
+3. Customize [skill-rules.json](.gemini/hooks/skill-rules.json) with your project's skills and triggers.
 
 ---
 
 ### Skills - Domain Knowledge
 
-Skills are markdown documents that teach Claude project-specific patterns and conventions.
+Skills are markdown documents that teach Gemini project-specific patterns and conventions.
 
-**Location:** `.claude/skills/{skill-name}/SKILL.md`
+**Location:** `.gemini/skills/{skill-name}/SKILL.md`
 
 **📄 Examples:**
-- [testing-patterns](.claude/skills/testing-patterns/SKILL.md) - TDD, factory functions, mocking
-- [systematic-debugging](.claude/skills/systematic-debugging/SKILL.md) - Four-phase debugging methodology
-- [react-ui-patterns](.claude/skills/react-ui-patterns/SKILL.md) - Loading states, error handling
-- [graphql-schema](.claude/skills/graphql-schema/SKILL.md) - Queries, mutations, codegen
-- [core-components](.claude/skills/core-components/SKILL.md) - Design system, tokens
-- [formik-patterns](.claude/skills/formik-patterns/SKILL.md) - Form handling, validation
+- [testing-patterns](.gemini/skills/testing-patterns/SKILL.md) - TDD, factory functions, mocking
+- [systematic-debugging](.gemini/skills/systematic-debugging/SKILL.md) - Four-phase debugging methodology
+- [react-ui-patterns](.gemini/skills/react-ui-patterns/SKILL.md) - Loading states, error handling
+- [graphql-schema](.gemini/skills/graphql-schema/SKILL.md) - Queries, mutations, codegen
+- [core-components](.gemini/skills/core-components/SKILL.md) - Design system, tokens
+- [formik-patterns](.gemini/skills/formik-patterns/SKILL.md) - Form handling, validation
 
 #### SKILL.md Frontmatter Fields
 
 | Field | Required | Max Length | Description |
 |-------|----------|------------|-------------|
 | `name` | **Yes** | 64 chars | Lowercase letters, numbers, and hyphens only. Should match directory name. |
-| `description` | **Yes** | 1024 chars | What the skill does and when to use it. Claude uses this to decide when to apply the skill. |
-| `allowed-tools` | No | - | Comma-separated list of tools Claude can use (e.g., `Read, Grep, Bash(npm:*)`). |
-| `model` | No | - | Specific model to use (e.g., `claude-sonnet-4-20250514`). |
+| `description` | **Yes** | 1024 chars | What the skill does and when to use it. Gemini uses this to decide when to apply the skill. |
+| `allowed-tools` | No | - | Comma-separated list of tools Gemini can use (e.g., `Read, Grep, Bash(npm:*)`). |
+| `model` | No | - | Specific model to use (e.g., `gemini-sonnet-4-20250514`). |
 
 #### SKILL.md Format
 
@@ -648,7 +648,7 @@ Skills are markdown documents that teach Claude project-specific patterns and co
 name: skill-name
 description: What this skill does and when to use it. Include keywords users would mention.
 allowed-tools: Read, Grep, Glob
-model: claude-sonnet-4-20250514
+model: gemini-sonnet-4-20250514
 ---
 
 # Skill Title
@@ -678,7 +678,7 @@ model: claude-sonnet-4-20250514
 #### Best Practices for Skills
 
 1. **Keep SKILL.md focused** - Under 500 lines; put detailed docs in separate referenced files
-2. **Write trigger-rich descriptions** - Claude uses semantic matching on descriptions to decide when to apply skills
+2. **Write trigger-rich descriptions** - Gemini uses semantic matching on descriptions to decide when to apply skills
 3. **Include examples** - Show both good and bad patterns with code
 4. **Reference other skills** - Show how skills work together
 5. **Use exact filename** - Must be `SKILL.md` (case-sensitive)
@@ -689,11 +689,11 @@ model: claude-sonnet-4-20250514
 
 Agents are AI assistants with focused purposes and their own prompts.
 
-**Location:** `.claude/agents/{agent-name}.md`
+**Location:** `.gemini/agents/{agent-name}.md`
 
 **📄 Examples:**
-- [code-reviewer.md](.claude/agents/code-reviewer.md) - Comprehensive code review with checklist
-- [github-workflow.md](.claude/agents/github-workflow.md) - Git commits, branches, PRs
+- [code-reviewer.md](.gemini/agents/code-reviewer.md) - Comprehensive code review with checklist
+- [github-workflow.md](.gemini/agents/github-workflow.md) - Git commits, branches, PRs
 
 #### Agent Format
 
@@ -734,14 +734,14 @@ You are a senior code reviewer...
 
 Custom commands invoked with `/command-name`.
 
-**Location:** `.claude/commands/{command-name}.md`
+**Location:** `.gemini/commands/{command-name}.md`
 
 **📄 Examples:**
-- [onboard.md](.claude/commands/onboard.md) - Deep task exploration
-- [pr-review.md](.claude/commands/pr-review.md) - PR review workflow
-- [pr-summary.md](.claude/commands/pr-summary.md) - Generate PR description
-- [code-quality.md](.claude/commands/code-quality.md) - Quality checks
-- [docs-sync.md](.claude/commands/docs-sync.md) - Documentation alignment
+- [onboard.md](.gemini/commands/onboard.md) - Deep task exploration
+- [pr-review.md](.gemini/commands/pr-review.md) - PR review workflow
+- [pr-summary.md](.gemini/commands/pr-summary.md) - Generate PR description
+- [code-quality.md](.gemini/commands/code-quality.md) - Quality checks
+- [docs-sync.md](.gemini/commands/docs-sync.md) - Documentation alignment
 
 #### Command Format
 
@@ -776,20 +776,20 @@ Recent commits: !`git log --oneline -5`
 
 ## GitHub Actions Workflows
 
-Automate code review, quality checks, and maintenance with Claude Code.
+Automate code review, quality checks, and maintenance with Gemini Code.
 
 **📄 Examples:**
-- [pr-claude-code-review.yml](.github/workflows/pr-claude-code-review.yml) - Auto PR review
-- [scheduled-claude-code-docs-sync.yml](.github/workflows/scheduled-claude-code-docs-sync.yml) - Monthly docs sync
-- [scheduled-claude-code-quality.yml](.github/workflows/scheduled-claude-code-quality.yml) - Weekly quality review
-- [scheduled-claude-code-dependency-audit.yml](.github/workflows/scheduled-claude-code-dependency-audit.yml) - Biweekly dependency updates
+- [pr-gemini-code-review.yml](.github/workflows/pr-gemini-code-review.yml) - Auto PR review
+- [scheduled-gemini-code-docs-sync.yml](.github/workflows/scheduled-gemini-code-docs-sync.yml) - Monthly docs sync
+- [scheduled-gemini-code-quality.yml](.github/workflows/scheduled-gemini-code-quality.yml) - Weekly quality review
+- [scheduled-gemini-code-dependency-audit.yml](.github/workflows/scheduled-gemini-code-dependency-audit.yml) - Biweekly dependency updates
 
 ### PR Code Review
 
-Automatically reviews PRs and responds to `@claude` mentions.
+Automatically reviews PRs and responds to `@gemini` mentions.
 
 ```yaml
-name: PR - Claude Code Review
+name: PR - Gemini Code Review
 on:
   pull_request:
     types: [opened, synchronize, reopened]
@@ -802,19 +802,19 @@ jobs:
       github.event_name == 'pull_request' ||
       (github.event_name == 'issue_comment' &&
        github.event.issue.pull_request &&
-       contains(github.event.comment.body, '@claude'))
+       contains(github.event.comment.body, '@gemini'))
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - uses: anthropics/claude-code-action@beta
+      - uses: anthropics/gemini-code-action@beta
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          model: claude-opus-4-5-20251101
+          model: gemini-opus-4-5-20251101
           prompt: |
-            Review this PR using .claude/agents/code-reviewer.md standards.
+            Review this PR using .gemini/agents/code-reviewer.md standards.
             Run `git diff origin/main...HEAD` to see changes.
 ```
 
@@ -822,9 +822,9 @@ jobs:
 
 | Workflow | Schedule | Purpose |
 |----------|----------|---------|
-| [Code Quality](.github/workflows/scheduled-claude-code-quality.yml) | Weekly (Sunday) | Reviews random directories, auto-fixes issues |
-| [Docs Sync](.github/workflows/scheduled-claude-code-docs-sync.yml) | Monthly (1st) | Ensures docs align with code changes |
-| [Dependency Audit](.github/workflows/scheduled-claude-code-dependency-audit.yml) | Biweekly (1st & 15th) | Safe dependency updates with testing |
+| [Code Quality](.github/workflows/scheduled-gemini-code-quality.yml) | Weekly (Sunday) | Reviews random directories, auto-fixes issues |
+| [Docs Sync](.github/workflows/scheduled-gemini-code-docs-sync.yml) | Monthly (1st) | Ensures docs align with code changes |
+| [Dependency Audit](.github/workflows/scheduled-gemini-code-dependency-audit.yml) | Biweekly (1st & 15th) | Safe dependency updates with testing |
 
 ### Setup Required
 
@@ -846,9 +846,9 @@ Add `ANTHROPIC_API_KEY` to your repository secrets:
 
 ## Best Practices
 
-### 1. Start with CLAUDE.md
+### 1. Start with GEMINI.md
 
-Your `CLAUDE.md` is the foundation. Include:
+Your `GEMINI.md` is the foundation. Include:
 - Stack overview
 - Key commands
 - Critical rules
@@ -898,43 +898,43 @@ Commit everything except:
 
 | File | Description |
 |------|-------------|
-| [CLAUDE.md](CLAUDE.md) | Example project memory file |
-| [.claude/settings.json](.claude/settings.json) | Full hooks configuration |
-| [.claude/settings.md](.claude/settings.md) | Human-readable hooks documentation |
+| [GEMINI.md](GEMINI.md) | Example project memory file |
+| [.gemini/settings.json](.gemini/settings.json) | Full hooks configuration |
+| [.gemini/settings.md](.gemini/settings.md) | Human-readable hooks documentation |
 | [.mcp.json](.mcp.json) | MCP server configuration (JIRA, GitHub, Slack, etc.) |
 | **Agents** | |
-| [.claude/agents/code-reviewer.md](.claude/agents/code-reviewer.md) | Comprehensive code review agent |
-| [.claude/agents/github-workflow.md](.claude/agents/github-workflow.md) | Git workflow agent |
+| [.gemini/agents/code-reviewer.md](.gemini/agents/code-reviewer.md) | Comprehensive code review agent |
+| [.gemini/agents/github-workflow.md](.gemini/agents/github-workflow.md) | Git workflow agent |
 | **Commands** | |
-| [.claude/commands/onboard.md](.claude/commands/onboard.md) | Deep task exploration |
-| [.claude/commands/ticket.md](.claude/commands/ticket.md) | **JIRA/Linear ticket workflow (read → implement → update)** |
-| [.claude/commands/pr-review.md](.claude/commands/pr-review.md) | PR review workflow |
-| [.claude/commands/pr-summary.md](.claude/commands/pr-summary.md) | Generate PR summary |
-| [.claude/commands/code-quality.md](.claude/commands/code-quality.md) | Quality checks |
-| [.claude/commands/docs-sync.md](.claude/commands/docs-sync.md) | Documentation sync |
+| [.gemini/commands/onboard.md](.gemini/commands/onboard.md) | Deep task exploration |
+| [.gemini/commands/ticket.md](.gemini/commands/ticket.md) | **JIRA/Linear ticket workflow (read → implement → update)** |
+| [.gemini/commands/pr-review.md](.gemini/commands/pr-review.md) | PR review workflow |
+| [.gemini/commands/pr-summary.md](.gemini/commands/pr-summary.md) | Generate PR summary |
+| [.gemini/commands/code-quality.md](.gemini/commands/code-quality.md) | Quality checks |
+| [.gemini/commands/docs-sync.md](.gemini/commands/docs-sync.md) | Documentation sync |
 | **Hooks** | |
-| [.claude/hooks/skill-eval.sh](.claude/hooks/skill-eval.sh) | Skill evaluation wrapper |
-| [.claude/hooks/skill-eval.js](.claude/hooks/skill-eval.js) | Node.js skill matching engine |
-| [.claude/hooks/skill-rules.json](.claude/hooks/skill-rules.json) | Pattern matching rules |
+| [.gemini/hooks/skill-eval.sh](.gemini/hooks/skill-eval.sh) | Skill evaluation wrapper |
+| [.gemini/hooks/skill-eval.js](.gemini/hooks/skill-eval.js) | Node.js skill matching engine |
+| [.gemini/hooks/skill-rules.json](.gemini/hooks/skill-rules.json) | Pattern matching rules |
 | **Skills** | |
-| [.claude/skills/testing-patterns/SKILL.md](.claude/skills/testing-patterns/SKILL.md) | TDD, factory functions, mocking |
-| [.claude/skills/systematic-debugging/SKILL.md](.claude/skills/systematic-debugging/SKILL.md) | Four-phase debugging |
-| [.claude/skills/react-ui-patterns/SKILL.md](.claude/skills/react-ui-patterns/SKILL.md) | Loading/error/empty states |
-| [.claude/skills/graphql-schema/SKILL.md](.claude/skills/graphql-schema/SKILL.md) | Queries, mutations, codegen |
-| [.claude/skills/core-components/SKILL.md](.claude/skills/core-components/SKILL.md) | Design system, tokens |
-| [.claude/skills/formik-patterns/SKILL.md](.claude/skills/formik-patterns/SKILL.md) | Form handling, validation |
+| [.gemini/skills/testing-patterns/SKILL.md](.gemini/skills/testing-patterns/SKILL.md) | TDD, factory functions, mocking |
+| [.gemini/skills/systematic-debugging/SKILL.md](.gemini/skills/systematic-debugging/SKILL.md) | Four-phase debugging |
+| [.gemini/skills/react-ui-patterns/SKILL.md](.gemini/skills/react-ui-patterns/SKILL.md) | Loading/error/empty states |
+| [.gemini/skills/graphql-schema/SKILL.md](.gemini/skills/graphql-schema/SKILL.md) | Queries, mutations, codegen |
+| [.gemini/skills/core-components/SKILL.md](.gemini/skills/core-components/SKILL.md) | Design system, tokens |
+| [.gemini/skills/formik-patterns/SKILL.md](.gemini/skills/formik-patterns/SKILL.md) | Form handling, validation |
 | **GitHub Workflows** | |
-| [.github/workflows/pr-claude-code-review.yml](.github/workflows/pr-claude-code-review.yml) | Auto PR review |
-| [.github/workflows/scheduled-claude-code-docs-sync.yml](.github/workflows/scheduled-claude-code-docs-sync.yml) | Monthly docs sync |
-| [.github/workflows/scheduled-claude-code-quality.yml](.github/workflows/scheduled-claude-code-quality.yml) | Weekly quality review |
-| [.github/workflows/scheduled-claude-code-dependency-audit.yml](.github/workflows/scheduled-claude-code-dependency-audit.yml) | Biweekly dependency audit |
+| [.github/workflows/pr-gemini-code-review.yml](.github/workflows/pr-gemini-code-review.yml) | Auto PR review |
+| [.github/workflows/scheduled-gemini-code-docs-sync.yml](.github/workflows/scheduled-gemini-code-docs-sync.yml) | Monthly docs sync |
+| [.github/workflows/scheduled-gemini-code-quality.yml](.github/workflows/scheduled-gemini-code-quality.yml) | Weekly quality review |
+| [.github/workflows/scheduled-gemini-code-dependency-audit.yml](.github/workflows/scheduled-gemini-code-dependency-audit.yml) | Biweekly dependency audit |
 
 ---
 
 ## Learn More
 
-- [Claude Code Documentation](https://docs.anthropic.com/en/docs/claude-code)
-- [Claude Code Action](https://github.com/anthropics/claude-code-action) - GitHub Action
+- [Gemini Code Documentation](https://docs.anthropic.com/en/docs/gemini-code)
+- [Gemini Code Action](https://github.com/anthropics/gemini-code-action) - GitHub Action
 - [Anthropic API](https://docs.anthropic.com/en/api)
 
 ---

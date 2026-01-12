@@ -79,17 +79,17 @@ jobs:
         id: branch
         run: |
           DIR_SLUG=$(echo "${{ matrix.directory }}" | sed 's/[^a-zA-Z0-9]/-/g' | sed 's/--*/-/g' | sed 's/^-//' | sed 's/-$//' | cut -c1-30)
-          BRANCH_NAME="claude/code-quality-${DIR_SLUG}-$(date +%Y%m%d)"
+          BRANCH_NAME="gemini/code-quality-${DIR_SLUG}-$(date +%Y%m%d)"
           echo "name=$BRANCH_NAME" >> $GITHUB_OUTPUT
 
-      - name: Claude Code Quality Review
-        uses: anthropics/claude-code-action@beta
+      - name: Gemini Code Quality Review
+        uses: google/gemini-code-action@beta
         with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          model: claude-opus-4-5-20251101
+          google_api_key: ${{ secrets.GOOGLE_API_KEY }}
+          model: gemini-1.5-pro
           timeout_minutes: 45
           base_branch: main
-          branch_prefix: claude/code-quality-
+          branch_prefix: gemini/code-quality-
           track_progress: true
           prompt: |
             # Weekly Code Quality Review
@@ -101,7 +101,7 @@ jobs:
 
             ## Your Tasks
 
-            1. **Read the code review standards**: Read `.claude/agents/code-reviewer.md` for the full checklist
+            1. **Read the code review standards**: Read `.gemini/agents/code-reviewer.md` for the full checklist
 
             2. **Analyze all files in the directory**:
                - List all .ts and .tsx files (excluding .test., .spec., .stories.)
@@ -136,7 +136,7 @@ jobs:
             - Fix issues that are clear improvements
             - Don't refactor working code just for style
             - If no issues found, report that and skip PR creation
-          claude_args: |
+          gemini_args: |
             --max-turns 35
             --allowedTools "Read,Write,Edit,Glob,Grep,Bash(git:*),Bash(gh:*),Bash(npm run lint*)"
 

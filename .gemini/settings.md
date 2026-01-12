@@ -1,8 +1,8 @@
-# Claude Code Settings Documentation
+# Gemini Code Settings Documentation
 
 ## Environment Variables
 
-- `INSIDE_CLAUDE_CODE`: "1" - Indicates code is running inside Claude Code
+- `INSIDE_CLAUDE_CODE`: "1" - Indicates code is running inside Gemini Code
 - `BASH_DEFAULT_TIMEOUT_MS`: Default timeout for bash commands (7 minutes)
 - `BASH_MAX_TIMEOUT_MS`: Maximum timeout for bash commands
 
@@ -11,7 +11,7 @@
 ### UserPromptSubmit
 
 - **Skill Evaluation**: Analyzes prompts and suggests relevant skills
-  - **Script**: `.claude/hooks/skill-eval.sh`
+  - **Script**: `.gemini/hooks/skill-eval.sh`
   - **Behavior**: Matches keywords, file paths, and patterns to suggest skills
 
 ### PreToolUse

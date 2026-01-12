@@ -14,7 +14,7 @@ Review the pull request: $ARGUMENTS
    - Run `gh pr diff $ARGUMENTS` to see changes
 
 2. **Read review standards**:
-   - Read `.claude/agents/code-reviewer.md` for the review checklist
+   - Read `.gemini/agents/code-reviewer.md` for the review checklist
 
 3. **Apply the checklist** to all changed files:
    - TypeScript strict mode compliance

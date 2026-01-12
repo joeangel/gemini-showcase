@@ -1,6 +1,6 @@
 # Project Name
 
-> This is an example CLAUDE.md file showing how to configure Claude Code for your project.
+> This is an example GEMINI.md file showing how to configure Gemini Code for your project.
 
 ## Quick Facts
 

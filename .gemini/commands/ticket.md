@@ -71,7 +71,7 @@ If you discover an unrelated bug while working:
 ```
 Me: /ticket PROJ-123
 
-Claude:
+Gemini:
 1. Fetching PROJ-123 from JIRA...
    Title: Add user profile avatar upload
    Description: Users should be able to upload a profile picture...

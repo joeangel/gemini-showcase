@@ -1,6 +1,6 @@
-# Claude Code Skills
+# Gemini Code Skills
 
-This directory contains project-specific skills that provide Claude with domain knowledge and best practices for this codebase.
+This directory contains project-specific skills that provide Gemini with domain knowledge and best practices for this codebase.
 
 ## Skills by Category
 
@@ -41,7 +41,7 @@ This directory contains project-specific skills that provide Claude with domain 
 
 ## How Skills Work
 
-Skills are automatically invoked when Claude recognizes relevant context. Each skill provides:
+Skills are automatically invoked when Gemini recognizes relevant context. Each skill provides:
 
 - **When to Use** - Trigger conditions
 - **Core Patterns** - Best practices and examples
@@ -50,7 +50,7 @@ Skills are automatically invoked when Claude recognizes relevant context. Each s
 
 ## Adding New Skills
 
-1. Create directory: `.claude/skills/skill-name/`
+1. Create directory: `.gemini/skills/skill-name/`
 2. Add `SKILL.md` (case-sensitive) with YAML frontmatter:
    ```yaml
    ---
@@ -60,14 +60,14 @@ Skills are automatically invoked when Claude recognizes relevant context. Each s
 
    # Optional fields
    allowed-tools: Read, Grep, Glob    # Restrict available tools
-   model: claude-sonnet-4-20250514    # Specific model to use
+   model: gemini-sonnet-4-20250514    # Specific model to use
    ---
    ```
 3. Include standard sections: When to Use, Core Patterns, Anti-Patterns, Integration
 4. Add to this README
-5. Add triggers to `.claude/hooks/skill-rules.json`
+5. Add triggers to `.gemini/hooks/skill-rules.json`
 
-**Important:** The `description` field is critical—Claude uses semantic matching on it to decide when to apply the skill. Include keywords users would naturally mention.
+**Important:** The `description` field is critical—Gemini uses semantic matching on it to decide when to apply the skill. Include keywords users would naturally mention.
 
 ## Maintenance
 

@@ -55,15 +55,15 @@ jobs:
 
           echo "since_date=$SINCE_DATE" >> $GITHUB_OUTPUT
 
-      - name: Claude Documentation Sync
+      - name: Gemini Documentation Sync
         if: steps.check-changes.outputs.has_changes == 'true'
-        uses: anthropics/claude-code-action@beta
+        uses: google/gemini-code-action@beta
         with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          model: claude-opus-4-5-20251101
+          google_api_key: ${{ secrets.GOOGLE_API_KEY }}
+          model: gemini-1.5-pro
           timeout_minutes: 60
           base_branch: main
-          branch_prefix: claude/docs-sync-
+          branch_prefix: gemini/docs-sync-
           track_progress: true
           prompt: |
             # Monthly Documentation Sync
@@ -105,7 +105,7 @@ jobs:
             - DO NOT add changelog-style entries
             - ONLY update docs when they are incorrect or misleading
             - If no problems are found, report that and DO NOT create a PR
-          claude_args: |
+          gemini_args: |
             --max-turns 30
             --allowedTools "Read,Write,Edit,Glob,Grep,Bash(git:*),Bash(gh:*)"
 
