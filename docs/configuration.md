@@ -16,9 +16,10 @@ This guide covers the core configuration files for Gemini Code integration.
 GEMINI.md is Gemini's persistent memory that loads automatically at session start.
 
 **Locations (in order of precedence):**
-1. `.gemini/GEMINI.md` (project, in .gemini folder)
-2. `./GEMINI.md` (project root)
-3. `~/.gemini/GEMINI.md` (user-level, all projects)
+1. `GEMINI.local.md` (local project override, gitignored)
+2. `.gemini/GEMINI.md` (project, in .gemini folder)
+3. `./GEMINI.md` (project root)
+4. `~/.gemini/GEMINI.md` (user-level, all projects)
 
 **What to include:**
 - Project stack and architecture overview
