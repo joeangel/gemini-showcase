@@ -83,14 +83,20 @@ jobs:
           echo "name=$BRANCH_NAME" >> $GITHUB_OUTPUT
 
       - name: Gemini Code Quality Review
-        uses: google/gemini-code-action@beta
+        uses: google-github-actions/run-gemini-cli@v0
         with:
-          google_api_key: ${{ secrets.GEMINI_API_KEY }}
-          model: gemini-1.5-flash
-          timeout_minutes: 45
-          base_branch: main
-          branch_prefix: gemini/code-quality-
-          track_progress: true
+          gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
+          settings: |-
+            {
+              "model": {
+                "maxSessionTurns": 35
+              },
+              "tools": {
+                "core": [
+                  "run_shell_command"
+                ]
+              }
+            }
           prompt: |
             # Weekly Code Quality Review
 
@@ -136,9 +142,6 @@ jobs:
             - Fix issues that are clear improvements
             - Don't refactor working code just for style
             - If no issues found, report that and skip PR creation
-          gemini_args: |
-            --max-turns 35
-            --allowedTools "Read,Write,Edit,Glob,Grep,Bash(git:*),Bash(gh:*),Bash(npm run lint*)"
 
   report-completion:
     needs: [select-directories, review-directory]

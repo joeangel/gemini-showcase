@@ -57,14 +57,20 @@ jobs:
 
       - name: Gemini Documentation Sync
         if: steps.check-changes.outputs.has_changes == 'true'
-        uses: google/gemini-code-action@beta
+        uses: google-github-actions/run-gemini-cli@v0
         with:
-          google_api_key: ${{ secrets.GEMINI_API_KEY }}
-          model: gemini-1.5-flash
-          timeout_minutes: 60
-          base_branch: main
-          branch_prefix: gemini/docs-sync-
-          track_progress: true
+          gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
+          settings: |-
+            {
+              "model": {
+                "maxSessionTurns": 30
+              },
+              "tools": {
+                "core": [
+                  "run_shell_command"
+                ]
+              }
+            }
           prompt: |
             # Monthly Documentation Sync
 
@@ -105,9 +111,6 @@ jobs:
             - DO NOT add changelog-style entries
             - ONLY update docs when they are incorrect or misleading
             - If no problems are found, report that and DO NOT create a PR
-          gemini_args: |
-            --max-turns 30
-            --allowedTools "Read,Write,Edit,Glob,Grep,Bash(git:*),Bash(gh:*)"
 
       - name: Report no changes
         if: steps.check-changes.outputs.has_changes == 'false'

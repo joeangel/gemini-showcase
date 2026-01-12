@@ -63,14 +63,20 @@ jobs:
 
       - name: Gemini Dependency Analysis & Update
         if: steps.check-outdated.outputs.has_outdated == 'true' || steps.security-audit.outputs.vulnerabilities != '0'
-        uses: google/gemini-code-action@beta
+        uses: google-github-actions/run-gemini-cli@v0
         with:
-          google_api_key: ${{ secrets.GEMINI_API_KEY }}
-          model: gemini-1.5-flash
-          timeout_minutes: 45
-          base_branch: main
-          branch_prefix: gemini/deps-update-
-          track_progress: true
+          gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
+          settings: |-
+            {
+              "model": {
+                "maxSessionTurns": 40
+              },
+              "tools": {
+                "core": [
+                  "run_shell_command"
+                ]
+              }
+            }
           prompt: |
             # Dependency Audit
 
@@ -105,9 +111,6 @@ jobs:
             - If tests fail after an update, revert that update
             - Group related updates together
             - If NO updates are possible, report that and don't create a PR
-          gemini_args: |
-            --max-turns 40
-            --allowedTools "Read,Write,Edit,Glob,Grep,Bash(git:*),Bash(gh:*),Bash(npm:*)"
 
       - name: Report no updates needed
         if: steps.check-outdated.outputs.has_outdated == 'false' && steps.security-audit.outputs.vulnerabilities == '0'

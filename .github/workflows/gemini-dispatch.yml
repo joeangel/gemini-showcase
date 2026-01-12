@@ -149,8 +149,6 @@ jobs:
       additional_context: '${{ needs.dispatch.outputs.additional_context }}'
     secrets: 'inherit'
 
-    secrets: 'inherit'
-
   fix:
     needs: 'dispatch'
     if: |-
