@@ -76,6 +76,7 @@ Custom commands invoked with `/command-name`.
 
 **📄 Examples:**
 - [onboard.md](../.gemini/commands/onboard.md)
+- [pr-create.md](../.gemini/commands/pr-create.md)
 - [pr-review.md](../.gemini/commands/pr-review.md)
 - [ticket.md](../.gemini/commands/ticket.md)
 

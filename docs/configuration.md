@@ -106,6 +106,27 @@ MCP (Model Context Protocol) servers let Gemini Code connect to external tools l
 }
 ```
 
+**Google Ecosystem:**
+```json
+{
+  "gcloud": {
+    "type": "stdio",
+    "command": "npx",
+    "args": ["-y", "@google-cloud/gcloud-mcp"]
+  },
+  "google-workspace": {
+    "type": "stdio",
+    "command": "npx",
+    "args": ["-y", "@iflow-mcp/google-workspace-mcp-server"],
+    "env": {
+      "GOOGLE_CLIENT_ID": "${GOOGLE_CLIENT_ID}",
+      "GOOGLE_CLIENT_SECRET": "${GOOGLE_CLIENT_SECRET}",
+      "GOOGLE_REFRESH_TOKEN": "${GOOGLE_REFRESH_TOKEN}"
+    }
+  }
+}
+```
+
 ### Environment Variables
 Set these in your shell profile or `.env` file (don't commit secrets!):
 ```bash
