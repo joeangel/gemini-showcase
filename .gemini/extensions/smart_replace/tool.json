@@ -1,0 +1,28 @@
+{
+    "name": "smart_replace",
+    "description": "Smartly replaces a block of code in a file using fuzzy matching. Use this when you are not 100% sure about the exact whitespace or indentation of the target code, or when standard replace_file_content fails.",
+    "parameters": {
+        "type": "OBJECT",
+        "properties": {
+            "path": {
+                "type": "STRING",
+                "description": "The absolute path to the file to modify."
+            },
+            "search_block": {
+                "type": "STRING",
+                "description": "The block of code to search for. Can contain inexact whitespace/indentation."
+            },
+            "replace_block": {
+                "type": "STRING",
+                "description": "The new block of code to replace the search_block with."
+            }
+        },
+        "required": [
+            "path",
+            "search_block",
+            "replace_block"
+        ]
+    },
+    "toolType": "executable",
+    "entryPoint": "node index.js"
+}

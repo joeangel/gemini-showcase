@@ -49,7 +49,7 @@ jobs:
         uses: google-github-actions/run-gemini-cli@v0
         with:
           gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
-          extensions: 'local:.'
+          extensions: 'local:.gemini/extensions/smart_replace'
           settings: |-
             {
               "model": {
@@ -79,7 +79,7 @@ jobs:
             1. Read the user request carefully.
             2. Identify the code to refactor. Use `grep_search` or `find_by_name` if specific files aren't mentioned.
             3. Follow the guidelines in `.gemini/commands/refactor.md`.
-            4. Apply the refactoring using file editing tools.
+            4. **CRITICAL**: Use the `smart_replace` tool for applying code changes. It is much safer than `replace_file_content` as it performs fuzzy matching (ignoring whitespace/indentation differences).
             5. Create a new branch `refactor/issue-${{ inputs.issue_number }}`.
             6. Commit the changes following Conventional Commits (e.g., `refactor: ...`).
             7. Push and create a Pull Request linking to Issue #${{ inputs.issue_number }}.

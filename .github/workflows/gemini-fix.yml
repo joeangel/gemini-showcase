@@ -7,6 +7,14 @@ on:
         required: true
         type: string
         description: 'The issue number to fix'
+      comment_id:
+        required: false
+        type: string
+        description: 'The comment ID'
+      prompt:
+        required: false
+        type: string
+        description: 'Optional user prompt'
 
 permissions:
   contents: write
@@ -42,6 +50,7 @@ jobs:
           gcp_location: '${{ vars.GOOGLE_CLOUD_LOCATION }}'
           gcp_project_id: '${{ vars.GOOGLE_CLOUD_PROJECT }}'
           gemini_api_key: '${{ secrets.GEMINI_API_KEY }}'
+          extensions: 'local:.gemini/extensions/smart_replace'
           settings: |-
             {
               "model": {
@@ -64,4 +73,15 @@ jobs:
                 }
               }
             }
-          prompt: '/gemini-issue-fixer'
+          prompt: |
+            You are the Gemini Issue Fixer. You are fixing Issue #${{ inputs.issue_number }}.
+            
+            USER PROMPT: "${{ inputs.prompt }}"
+            
+            INSTRUCTIONS:
+            1. Analyze the issue description.
+            2. Explore the codebase to locate the bug.
+            3. **CRITICAL**: Use the `smart_replace` tool to fix the bug. It uses fuzzy matching to be safer than standard tools.
+            4. Verify your fix if possible (e.g. by considering tests).
+            5. Commit and push your changes to a new branch `fix/issue-${{ inputs.issue_number }}`.
+            6. Create a Pull Request closing the issue.
