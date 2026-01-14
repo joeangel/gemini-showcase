@@ -23,16 +23,29 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Check for lock file
+        id: check-lock-file
+        run: |
+          if [ -f package-lock.json ] || [ -f npm-shrinkwrap.json ] || [ -f yarn.lock ]; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+            echo "No lock file found. Skipping dependency audit."
+          fi
+
       - name: Setup Node.js
+        if: steps.check-lock-file.outputs.exists == 'true'
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
 
       - name: Install dependencies
+        if: steps.check-lock-file.outputs.exists == 'true'
         run: npm ci
 
       - name: Check for outdated dependencies
+        if: steps.check-lock-file.outputs.exists == 'true'
         id: check-outdated
         run: |
           echo "Checking for outdated dependencies..."
@@ -48,6 +61,7 @@ jobs:
           fi
 
       - name: Run security audit
+        if: steps.check-lock-file.outputs.exists == 'true'
         id: security-audit
         run: |
           echo "Running security audit..."
@@ -62,7 +76,7 @@ jobs:
           fi
 
       - name: Gemini Dependency Analysis & Update
-        if: steps.check-outdated.outputs.has_outdated == 'true' || steps.security-audit.outputs.vulnerabilities != '0'
+        if: steps.check-lock-file.outputs.exists == 'true' && (steps.check-outdated.outputs.has_outdated == 'true' || steps.security-audit.outputs.vulnerabilities != '0')
         uses: google-github-actions/run-gemini-cli@v0
         with:
           gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
@@ -113,7 +127,7 @@ jobs:
             - If NO updates are possible, report that and don't create a PR
 
       - name: Report no updates needed
-        if: steps.check-outdated.outputs.has_outdated == 'false' && steps.security-audit.outputs.vulnerabilities == '0'
+        if: steps.check-lock-file.outputs.exists == 'true' && steps.check-outdated.outputs.has_outdated == 'false' && steps.security-audit.outputs.vulnerabilities == '0'
         run: |
           echo "All dependencies are up to date and no security vulnerabilities found."
           echo "No action needed."
