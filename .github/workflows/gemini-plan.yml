@@ -1,0 +1,81 @@
+name: Gemini Plan
+
+on:
+  workflow_call:
+    inputs:
+      issue_number:
+        description: 'The issue number to process'
+        required: true
+        type: string
+      comment_id:
+        description: 'The comment ID that triggered the workflow'
+        required: true
+        type: string
+      prompt:
+        description: 'The planning request'
+        required: true
+        type: string
+    secrets:
+      GEMINI_API_KEY:
+        required: true
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        if: hashFiles('package.json') != ''
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        if: hashFiles('package-lock.json') != ''
+        run: npm ci
+
+      - name: Run Gemini Plan
+        uses: google-github-actions/run-gemini-cli@v0
+        with:
+          gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
+          extensions: 'local:.'
+          settings: |-
+            {
+              "model": {
+                "maxSessionTurns": 30
+              },
+              "tools": {
+                "core": [
+                  "run_shell_command",
+                  "read_file",
+                  "replace_file_content",
+                  "write_to_file",
+                  "view_file",
+                  "list_dir",
+                  "find_by_name"
+                ]
+              }
+            }
+          prompt: |
+            You are processing a Plan request from Issue #${{ inputs.issue_number }}.
+            
+            USER REQUEST:
+            "${{ inputs.prompt }}"
+            
+            INSTRUCTIONS:
+            1. Read the user request carefully.
+            2. Locate existing `task.md` or determine where to create it.
+            3. Follow the guidelines in `.gemini/commands/plan.md`.
+            4. Generate/Update the `task.md` file using `write_to_file` or `replace_file_content`.
+            5. Create a new branch `plan/issue-${{ inputs.issue_number }}`.
+            6. Commit the changes: `docs: update task.md for issue #${{ inputs.issue_number }}`.
+            7. Push and create a Pull Request linking to Issue #${{ inputs.issue_number }}.

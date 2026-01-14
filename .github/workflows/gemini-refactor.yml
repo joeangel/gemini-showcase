@@ -1,0 +1,85 @@
+name: Gemini Refactor
+
+on:
+  workflow_call:
+    inputs:
+      issue_number:
+        description: 'The issue number to process'
+        required: true
+        type: string
+      comment_id:
+        description: 'The comment ID that triggered the workflow'
+        required: true
+        type: string
+      prompt:
+        description: 'The refactoring request'
+        required: true
+        type: string
+    secrets:
+      GEMINI_API_KEY:
+        required: true
+
+jobs:
+  refactor:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        # Only setup Node if package.json exists, otherwise skip (generic repo support)
+        if: hashFiles('package.json') != ''
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        # Only install if package-lock exists
+        if: hashFiles('package-lock.json') != ''
+        run: npm ci
+
+      - name: Run Gemini Refactor
+        uses: google-github-actions/run-gemini-cli@v0
+        with:
+          gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
+          extensions: 'local:.'
+          settings: |-
+            {
+              "model": {
+                "maxSessionTurns": 30
+              },
+              "tools": {
+                "core": [
+                  "run_shell_command",
+                  "read_file",
+                  "replace_file_content",
+                  "write_to_file",
+                  "multi_replace_file_content",
+                  "view_file",
+                  "list_dir",
+                  "grep_search",
+                  "find_by_name"
+                ]
+              }
+            }
+          prompt: |
+            You are processing a Refactor request from Issue #${{ inputs.issue_number }}.
+            
+            USER REQUEST:
+            "${{ inputs.prompt }}"
+            
+            INSTRUCTIONS:
+            1. Read the user request carefully.
+            2. Identify the code to refactor. Use `grep_search` or `find_by_name` if specific files aren't mentioned.
+            3. Follow the guidelines in `.gemini/commands/refactor.md`.
+            4. Apply the refactoring using file editing tools.
+            5. Create a new branch `refactor/issue-${{ inputs.issue_number }}`.
+            6. Commit the changes following Conventional Commits (e.g., `refactor: ...`).
+            7. Push and create a Pull Request linking to Issue #${{ inputs.issue_number }}.
