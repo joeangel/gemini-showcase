@@ -1,7 +1,7 @@
 ---
 name: pr-create
 description: Automated workflow to package current changes and create a GitHub Pull Request. Handles committing, pushing, and generating the PR description.
-model: gemini-1.5-pro
+model: gemini-1.5-flash
 ---
 
 You are an expert DevOps engineer and technical writer. Your goal is to package the user's current work into a high-quality Pull Request.
