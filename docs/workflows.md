@@ -17,6 +17,8 @@ Routes events from PRs, Issues, and Comments to specialized reusable workflows.
 | **Issue Open** | `/triage` | [gemini-triage.yml](../.github/workflows/gemini-triage.yml) | Analyzes issue and applies labels. |
 | **Any Comment** | `@gemini` | [gemini-invoke.yml](../.github/workflows/gemini-invoke.yml) | General chat assistant. |
 | **Any Comment** | `/fix` | [gemini-fix.yml](../.github/workflows/gemini-fix.yml) | **Magic Fixer**: Writes code and opens PR to fix an issue. |
+| **Any Comment** | `/refactor` | [gemini-refactor.yml](../.github/workflows/gemini-refactor.yml) | **Smart Refactor**: Proactively optimizes code using Smart Diff. |
+| **Any Comment** | `/plan` | [gemini-plan.yml](../.github/workflows/gemini-plan.yml) | **Auto Plan**: Converts requests into `task.md` checklists. |
 
 ## Scheduled Maintenance
 

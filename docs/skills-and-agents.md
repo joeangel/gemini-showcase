@@ -79,6 +79,8 @@ Custom commands invoked with `/command-name`.
 - [pr-create.md](../.gemini/commands/pr-create.md)
 - [pr-review.md](../.gemini/commands/pr-review.md)
 - [ticket.md](../.gemini/commands/ticket.md)
+- [refactor.md](../.gemini/commands/refactor.md) - **Proactive Refactoring Agent**
+- [plan.md](../.gemini/commands/plan.md) - **Task Planning Agent**
 
 ### Command Format
 

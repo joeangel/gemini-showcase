@@ -20,7 +20,19 @@ Open a PR, and Gemini automatically reviews it against our [Code Review Agent](.
 ### 3. Auto-Triage (`/triage`)
 Open an issue, and Gemini immediately analyzes it and applies the correct labels.
 
-### 4. Chat (`@gemini`)
+### 4. Smart Refactor (`/refactor`)
+Want to modernize your code? Comment:
+> `@gemini /refactor convert this to async/await`
+
+Gemini acts as a **Senior Engineer**, using our specialized **Smart Diff** tool to safely restructure your code.
+
+### 5. Auto-Plan (`/plan`)
+Have a big idea but don't know where to start?
+> `@gemini /plan implement user login`
+
+Gemini acts as a **Project Manager**, breaking down your request into a detailed `task.md` checklist.
+
+### 6. Chat (`@gemini`)
 Mention `@gemini` in any comment to ask questions or request changes.
 
 ---
@@ -33,7 +45,8 @@ Detailed documentation has been moved to keep this README token-friendly for AI 
 |-------|-------------|
 | **[Configuration](docs/configuration.md)** | `AIMD`, `settings.json`, MCP, LSP, Hooks |
 | **[Skills & Agents](docs/skills-and-agents.md)** | Creating Custom Skills, Agents, and Commands |
-| **[Workflows](docs/workflows.md)** | Dispatch, Review, Triage, Fixer, and Scheduled Jobs |
+| **[Workflows](docs/workflows.md)** | Dispatch, Review, Triage, Refactor, Plan, Fixer |
+| **[Extensions](docs/extensions.md)** | **[NEW]** Smart Diff & Local Tool Extensions |
 | **[Cost & Usage](docs/cost-and-usage.md)** | **Billing, API Limits, and Security (MUST READ)** |
 
 ---
