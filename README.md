@@ -4,6 +4,8 @@
 
 Once you've got Gemini Code set up, you can point it at your codebase and have it operate like a super-powered teammate. The real unlock is building a solid set of **Skills** and **Agents** for the stuff you do all the time.
 
+For background on how this project was produced, see the companion notes repo: https://github.com/joeangel/gemini-showcase-notes
+
 ## ✨ The Magic
 
 This project demonstrates specific "Magic" capabilities powered by Gemini:
