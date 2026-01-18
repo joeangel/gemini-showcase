@@ -142,13 +142,13 @@ A custom local extension that performs fuzzy code replacement, tolerating whites
 | **Agents** | 2 | N/A | 2 | 1 | 1 |
 | **Custom Extensions** | ✅ `smart_replace` | ✅ (URL-based) | ❌ | ❌ | ❌ |
 | **Scheduled Jobs** | ✅ (3) | Examples provided | ✅ (3) | ❌ | ❌ |
-| **Two-Stage Review** | ❌ | ❌ | ❌ | ✅ | ❌ |
-| **Skill Evaluation Hook** | ❌ | ❌ | ✅ | ❌ | ❌ |
-| **Subagent-Driven Dev** | ❌ | ❌ | ❌ | ✅ | ❌ |
-| **TDD Iron Law** | ❌ | ❌ | ❌ | ✅ | ❌ |
+| **Two-Stage Review** | ✅ | ❌ | ❌ | ✅ | ❌ |
+| **Skill Evaluation Hook** | ✅ | ❌ | ✅ | ❌ | ❌ |
+| **Subagent-Driven Dev** | ✅ (Prototype) | ❌ | ❌ | ✅ | ❌ |
+| **TDD Iron Law** | ✅ | ❌ | ❌ | ✅ | ❌ |
 | **MCP Integration** | ✅ | ❌ | ✅ | ❌ | ✅ |
 | **Plugin Marketplace** | ❌ | ❌ | ❌ | ✅ | ❌ |
-| **Graphviz Diagrams** | ❌ | ❌ | ❌ | ✅ | ❌ |
+| **Graphviz Diagrams** | ✅ | ❌ | ❌ | ✅ | ❌ |
 | **Free Tier Auth** | API Key | API Key / WIF | N/A | N/A | Qwen OAuth |
 
 ---
@@ -192,9 +192,13 @@ A custom local extension that performs fuzzy code replacement, tolerating whites
 - First-of-its-kind custom extension system for Gemini CLI
 - Only project with full research documentation on related ecosystems
 
-**Priority Improvements** (Recommended Order):
-1. 🟢 **Low Effort**: Add Graphviz diagrams to SKILL.md files
-2. 🟢 **Low Effort**: Add TDD anti-pattern catalogs to refactor/fix commands
-3. 🟡 **Medium Effort**: Implement skill evaluation hook
-4. 🟡 **Medium Effort**: Implement two-stage review in `/review`
-5. 🔴 **High Effort**: Add subagent-driven development for `/plan` execution
+**Implemented Features** (Completed in Jan 2026):
+1. ✅ **Graphviz Diagrams**: Logic flows in `systematic-debugging` and `testing-patterns`.
+2. ✅ **Two-Stage Review**: Spec Compliance check before Code Quality analysis.
+3. ✅ **TDD Anti-Patterns**: "Iron Law" strict mode for `/refactor` and `/fix`.
+4. ✅ **Skill Evaluation Hook**: Dynamic skill suggestions based on prompt.
+5. 🟡 **Subagent Execution (V2)**: Prototype implemented for `/plan` strict mode.
+
+**Future Roadmap**:
+1. 🔴 **Full Subagent Orchestration**: Parallel execution of V2 plans with shared memory.
+2. 🟡 **Memory Tool**: Long-term context management.

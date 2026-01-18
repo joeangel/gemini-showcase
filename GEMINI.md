@@ -1,4 +1,4 @@
-# Project Name
+# Gemini Showcase
 
 > This is an example GEMINI.md file showing how to configure Gemini Code for your project.
 

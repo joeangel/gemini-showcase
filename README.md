@@ -32,6 +32,9 @@ Gemini acts as a **Senior Engineer**, using our specialized **Smart Diff** tool 
 Have a big idea but don't know where to start?
 > `@gemini /plan implement user login`
 
+- **V1 (Context-Aware)**: Default. Fast and efficient.
+- **V2 (Strict Isolation)**: Experimental. Runs totally isolated subagents for each task. **High Cost**.
+
 Gemini acts as a **Project Manager**, breaking down your request into a detailed `task.md` checklist.
 
 ### 6. Chat (`@gemini`)
