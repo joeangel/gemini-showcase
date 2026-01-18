@@ -23,4 +23,5 @@ Thumbs.db
 # Gemini Code local files
 .gemini/settings.local.json
 .gemini/user-team-info.json
+.secrets
 GEMINI.local.md
