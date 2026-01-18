@@ -13,6 +13,23 @@ description: Jest testing patterns, factory functions, mocking strategies, and T
 - Refactor after green
 - Never write production code without a failing test
 
+```dot
+digraph TDD {
+  rankdir=LR;
+  node [shape=circle, width=1.5, fixedsize=true, style=filled];
+  
+  Red [label="RED\nWrite Failing Test", fillcolor="#ffcccc"];
+  Green [label="GREEN\nMake if Pass", fillcolor="#ccffcc"];
+  Refactor [label="REFACTOR\nClean up", fillcolor="#ccccff"];
+  
+  Red -> Green [label="Test Fails\nCorrectly"];
+  Green -> Refactor [label="Tests Pass"];
+  Refactor -> Red [label="Next Feature"];
+  
+  Refactor -> Refactor [label="Iterate"];
+}
+```
+
 **Behavior-Driven Testing:**
 - Test behavior, not implementation
 - Focus on public APIs and business requirements

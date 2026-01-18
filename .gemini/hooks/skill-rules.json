@@ -31,292 +31,238 @@
     "src/datadog": "analytics-tracking"
   },
   "skills": {
-    "storybook": {
-      "description": "Storybook story creation patterns",
-      "priority": 8,
-      "triggers": {
-        "keywords": ["storybook", "stories", "story"],
-        "keywordPatterns": ["\\bstory\\b", "\\.stories\\b"],
-        "pathPatterns": ["**/*.stories.tsx", "**/stories/**"],
-        "intentPatterns": [
-          "(?:create|add|write|build|make).*(?:stor(?:y|ies))",
-          "(?:stor(?:y|ies)).*(?:for|of)"
-        ],
-        "contentPatterns": ["ComponentMeta", "StoryObj", "@storybook"]
-      },
-      "relatedSkills": ["core-components"]
-    },
     "testing-patterns": {
       "description": "Jest testing patterns and TDD workflow",
       "priority": 9,
       "triggers": {
-        "keywords": ["test", "jest", "spec", "tdd", "mock", "factory"],
-        "keywordPatterns": ["\\btest(?:s|ing)?\\b", "\\bspec\\b", "unit test"],
-        "pathPatterns": ["**/*.test.ts", "**/*.test.tsx", "**/*.spec.ts", "**/test-utils/**", "**/__mocks__/**"],
+        "keywords": [
+          "test",
+          "jest",
+          "spec",
+          "tdd",
+          "mock",
+          "factory"
+        ],
+        "keywordPatterns": [
+          "\\btest(?:s|ing)?\\b",
+          "\\bspec\\b",
+          "unit test"
+        ],
+        "pathPatterns": [
+          "**/*.test.ts",
+          "**/*.test.tsx",
+          "**/*.spec.ts",
+          "**/test-utils/**",
+          "**/__mocks__/**"
+        ],
         "intentPatterns": [
           "(?:write|add|create|fix).*(?:test|spec)",
           "(?:test|spec).*(?:for|of|the)",
           "(?:red.green.refactor|tdd)"
         ],
-        "contentPatterns": ["describe\\(", "it\\(", "expect\\(", "jest\\.mock", "getMock"]
+        "contentPatterns": [
+          "describe\\(",
+          "it\\(",
+          "expect\\(",
+          "jest\\.mock",
+          "getMock"
+        ]
       },
-      "excludePatterns": ["e2e", "maestro", "end-to-end"]
+      "excludePatterns": [
+        "e2e",
+        "maestro",
+        "end-to-end"
+      ]
     },
     "formik-patterns": {
       "description": "Formik form handling with validation",
       "priority": 7,
       "triggers": {
-        "keywords": ["form", "formik", "validation", "yup", "input field"],
-        "keywordPatterns": ["\\bform(?:s)?\\b", "Form\\b", "\\bvalidat(?:e|ion)\\b"],
-        "pathPatterns": ["**/*Form.tsx", "**/*Form/**", "**/forms/**"],
+        "keywords": [
+          "form",
+          "formik",
+          "validation",
+          "yup",
+          "input field"
+        ],
+        "keywordPatterns": [
+          "\\bform(?:s)?\\b",
+          "Form\\b",
+          "\\bvalidat(?:e|ion)\\b"
+        ],
+        "pathPatterns": [
+          "**/*Form.tsx",
+          "**/*Form/**",
+          "**/forms/**"
+        ],
         "intentPatterns": [
           "(?:create|build|add).*(?:form)",
           "(?:form).*(?:validation|submit|field)",
           "(?:validat(?:e|ion)).*(?:schema|rule)"
         ],
-        "contentPatterns": ["useFormik", "Formik", "FormikProvider", "yup\\."]
+        "contentPatterns": [
+          "useFormik",
+          "Formik",
+          "FormikProvider",
+          "yup\\."
+        ]
       },
-      "excludePatterns": ["format", "transform", "platform"]
+      "excludePatterns": [
+        "format",
+        "transform",
+        "platform"
+      ]
     },
     "graphql-schema": {
       "description": "GraphQL queries, mutations, and code generation",
       "priority": 8,
       "triggers": {
-        "keywords": ["graphql", "query", "mutation", "gql", "apollo", "fragment"],
-        "keywordPatterns": ["\\bgql\\b", "\\bquery\\b", "\\bmutation\\b", "graphql"],
-        "pathPatterns": ["**/*.gql", "**/graphql/**", "**/*.generated.ts"],
+        "keywords": [
+          "graphql",
+          "query",
+          "mutation",
+          "gql",
+          "apollo",
+          "fragment"
+        ],
+        "keywordPatterns": [
+          "\\bgql\\b",
+          "\\bquery\\b",
+          "\\bmutation\\b",
+          "graphql"
+        ],
+        "pathPatterns": [
+          "**/*.gql",
+          "**/graphql/**",
+          "**/*.generated.ts"
+        ],
         "intentPatterns": [
           "(?:create|add|write).*(?:query|mutation|fragment)",
           "(?:fetch|get|load).*(?:data|from api)",
           "(?:graphql).*(?:hook|type)"
         ],
-        "contentPatterns": ["gql`", "useQuery", "useMutation", "useLazyQuery"]
+        "contentPatterns": [
+          "gql`",
+          "useQuery",
+          "useMutation",
+          "useLazyQuery"
+        ]
       },
-      "relatedSkills": ["react-ui-patterns"]
-    },
-    "navigation-architecture": {
-      "description": "React Navigation patterns and deep linking",
-      "priority": 7,
-      "triggers": {
-        "keywords": ["navigation", "navigate", "screen", "route", "stack", "tab", "drawer", "deep link"],
-        "keywordPatterns": ["\\bscreen\\b", "\\bnavigate\\b", "\\broute\\b"],
-        "pathPatterns": ["**/navigation/**", "**/screens/**", "**/*Screen.tsx", "**/*Stack.tsx"],
-        "intentPatterns": [
-          "(?:add|create|new).*(?:screen)",
-          "(?:navigate|go).*(?:to|back)",
-          "(?:screen).*(?:param|prop)"
-        ],
-        "contentPatterns": ["useNavigation", "navigation\\.navigate", "createStackNavigator", "RootStackParamList"]
-      }
-    },
-    "i18n-translations": {
-      "description": "Internationalization and translation patterns",
-      "priority": 6,
-      "triggers": {
-        "keywords": ["translation", "i18n", "localization", "translate", "t("],
-        "keywordPatterns": ["\\bt\\(", "\\bi18n\\b", "translat"],
-        "pathPatterns": ["**/localization/**", "**/en/**/*.json", "**/i18n/**"],
-        "intentPatterns": [
-          "(?:add|create).*(?:translation|text)",
-          "(?:translat).*(?:key|string)"
-        ],
-        "contentPatterns": ["useTranslation", "t\\(", "i18next"]
-      }
+      "relatedSkills": [
+        "react-ui-patterns"
+      ]
     },
     "core-components": {
       "description": "Core component library and design system",
       "priority": 7,
       "triggers": {
-        "keywords": ["component", "ui", "button", "text", "box", "hstack", "vstack", "token"],
-        "keywordPatterns": ["\\bcomponent\\b", "\\$[a-z]+\\d*"],
-        "pathPatterns": ["**/components/core/**", "**/components/**/*.tsx"],
+        "keywords": [
+          "component",
+          "ui",
+          "button",
+          "text",
+          "box",
+          "hstack",
+          "vstack",
+          "token"
+        ],
+        "keywordPatterns": [
+          "\\bcomponent\\b",
+          "\\$[a-z]+\\d*"
+        ],
+        "pathPatterns": [
+          "**/components/core/**",
+          "**/components/**/*.tsx"
+        ],
         "intentPatterns": [
           "(?:create|build|add).*(?:component)",
           "(?:style|design).*(?:component|ui)"
         ],
-        "contentPatterns": ["from 'components/core", "Box", "HStack", "VStack", "Text"]
+        "contentPatterns": [
+          "from 'components/core",
+          "Box",
+          "HStack",
+          "VStack",
+          "Text"
+        ]
       },
-      "excludePatterns": ["storybook", "test"]
+      "excludePatterns": [
+        "storybook",
+        "test"
+      ]
     },
     "systematic-debugging": {
       "description": "Four-phase debugging with root cause analysis",
       "priority": 9,
       "triggers": {
-        "keywords": ["bug", "debug", "fix", "error", "issue", "broken", "crash", "failing"],
-        "keywordPatterns": ["\\bbug\\b", "\\bfix\\b", "\\berror\\b", "\\bissue\\b", "doesn't work", "not working"],
+        "keywords": [
+          "bug",
+          "debug",
+          "fix",
+          "error",
+          "issue",
+          "broken",
+          "crash",
+          "failing"
+        ],
+        "keywordPatterns": [
+          "\\bbug\\b",
+          "\\bfix\\b",
+          "\\berror\\b",
+          "\\bissue\\b",
+          "doesn't work",
+          "not working"
+        ],
         "intentPatterns": [
           "(?:fix|debug|resolve|investigate).*(?:bug|error|issue|problem)",
           "(?:why).*(?:not working|broken|failing|crash)",
           "(?:something).*(?:wrong|broken)"
         ]
       },
-      "excludePatterns": ["fix typo", "fix formatting", "fix lint"]
-    },
-    "state-management": {
-      "description": "Redux Toolkit, Jotai, Apollo Client state patterns",
-      "priority": 6,
-      "triggers": {
-        "keywords": ["state", "redux", "jotai", "atom", "store", "slice", "context", "provider"],
-        "keywordPatterns": ["\\bstate\\b", "\\bredux\\b", "\\batom\\b", "\\bstore\\b"],
-        "pathPatterns": ["**/state/**", "**/store/**", "**/contexts/**", "**/*Atom.ts", "**/*Slice.ts"],
-        "intentPatterns": [
-          "(?:manage|handle).*(?:state)",
-          "(?:create|add).*(?:atom|slice|context)"
-        ],
-        "contentPatterns": ["useAtom", "useSelector", "createSlice", "atom\\("]
-      },
-      "excludePatterns": ["state of", "current state", "error state"]
-    },
-    "github-actions": {
-      "description": "GitHub Actions CI/CD workflow patterns",
-      "priority": 6,
-      "triggers": {
-        "keywords": ["github action", "github workflow", "workflow", "ci/cd", "cicd", "pipeline", "ci", "cd"],
-        "keywordPatterns": ["github.action", "ci/?cd", "\\bworkflow\\b"],
-        "pathPatterns": [".github/workflows/**", ".github/**/*.yml", ".github/**/*.yaml"],
-        "intentPatterns": [
-          "(?:create|add|update).*(?:workflow|action|pipeline)",
-          "(?:ci|cd).*(?:pipeline|workflow)"
-        ],
-        "contentPatterns": ["runs-on:", "uses:", "steps:"]
-      }
-    },
-    "analytics-tracking": {
-      "description": "Analytics with Amplitude, FullStory, Datadog, Sentry",
-      "priority": 5,
-      "triggers": {
-        "keywords": ["analytics", "tracking", "amplitude", "fullstory", "datadog", "event", "sentry"],
-        "keywordPatterns": ["\\btrack\\b", "\\bevent\\b", "\\blog\\b.*event"],
-        "pathPatterns": ["**/analytics/**", "**/tracking/**", "**/datadog/**", "**/sentry/**"],
-        "intentPatterns": [
-          "(?:track|log).*(?:event|action)",
-          "(?:add).*(?:analytics|tracking)"
-        ],
-        "contentPatterns": ["Analytics\\.log", "logEvent", "Sentry\\."]
-      }
-    },
-    "list-pagination": {
-      "description": "FlashList, pagination, infinite scroll patterns",
-      "priority": 5,
-      "triggers": {
-        "keywords": ["pagination", "flashlist", "infinite", "scroll", "list", "flatlist", "pull to refresh"],
-        "keywordPatterns": ["\\blist\\b", "paginate", "infinite.scroll"],
-        "pathPatterns": ["**/*List.tsx", "**/*List/**"],
-        "intentPatterns": [
-          "(?:add|implement).*(?:pagination|infinite)",
-          "(?:paginate).*(?:data|list)"
-        ],
-        "contentPatterns": ["FlashList", "onEndReached", "onRefresh", "ListRenderItem"]
-      },
-      "excludePatterns": ["todo list", "checklist", "list of"]
-    },
-    "modal-actionsheet": {
-      "description": "Modal and Actionsheet overlay patterns",
-      "priority": 5,
-      "triggers": {
-        "keywords": ["modal", "actionsheet", "bottom sheet", "overlay", "dialog", "popup", "sheet"],
-        "keywordPatterns": ["\\bmodal\\b", "\\bsheet\\b", "\\boverlay\\b", "\\bdialog\\b"],
-        "pathPatterns": ["**/*Modal.tsx", "**/*Sheet.tsx", "**/*Dialog.tsx", "**/modals/**"],
-        "intentPatterns": [
-          "(?:show|open|display).*(?:modal|sheet|dialog)",
-          "(?:create|add).*(?:modal|sheet|overlay)"
-        ],
-        "contentPatterns": ["Actionsheet", "Modal", "useDisclose"]
-      }
-    },
-    "maestro-e2e": {
-      "description": "Maestro end-to-end testing for React Native",
-      "priority": 6,
-      "triggers": {
-        "keywords": ["e2e", "maestro", "end-to-end", "integration test", "ui test"],
-        "keywordPatterns": ["\\be2e\\b", "\\bmaestro\\b", "end.to.end"],
-        "pathPatterns": [".maestro/**", ".maestro/**/*.yaml", "**/e2e/**"],
-        "intentPatterns": [
-          "(?:write|add|create).*(?:e2e|maestro|integration)",
-          "(?:test).*(?:flow|journey|scenario)"
-        ],
-        "contentPatterns": ["appId:", "- tap", "- assertVisible"]
-      }
+      "excludePatterns": [
+        "fix typo",
+        "fix formatting",
+        "fix lint"
+      ]
     },
     "react-ui-patterns": {
       "description": "React patterns, hooks, loading states, error handling",
       "priority": 6,
       "triggers": {
-        "keywords": ["react", "hook", "useeffect", "usestate", "usememo", "useref", "loading", "suspense"],
-        "keywordPatterns": ["\\buse[A-Z]\\w+\\b", "\\bhook\\b"],
-        "pathPatterns": ["**/hooks/**", "**/use*.ts", "**/use*.tsx"],
+        "keywords": [
+          "react",
+          "hook",
+          "useeffect",
+          "usestate",
+          "usememo",
+          "useref",
+          "loading",
+          "suspense"
+        ],
+        "keywordPatterns": [
+          "\\buse[A-Z]\\w+\\b",
+          "\\bhook\\b"
+        ],
+        "pathPatterns": [
+          "**/hooks/**",
+          "**/use*.ts",
+          "**/use*.tsx"
+        ],
         "intentPatterns": [
           "(?:create|write).*(?:hook|custom hook)",
           "(?:handle).*(?:loading|error|async)"
         ],
-        "contentPatterns": ["useState", "useEffect", "useCallback", "useMemo"]
-      },
-      "excludePatterns": ["test", "jest"]
-    },
-    "receiving-code-review": {
-      "description": "Handle code review feedback with rigor",
-      "priority": 4,
-      "triggers": {
-        "keywords": ["code review", "pr feedback", "review comment", "pr comment", "reviewer"],
-        "keywordPatterns": ["code.review", "pr.feedback", "review.comment"],
-        "intentPatterns": [
-          "(?:respond|address|handle).*(?:review|feedback|comment)",
-          "(?:reviewer).*(?:said|suggested|asked)"
-        ],
-        "contextPatterns": ["from the reviewer", "in the pr", "review feedback"]
-      }
-    },
-    "documentation": {
-      "description": "Documentation standards and TSDoc",
-      "priority": 3,
-      "triggers": {
-        "keywords": ["documentation", "tsdoc", "jsdoc", "readme", "docs"],
-        "keywordPatterns": ["\\bdoc(?:s|umentation)?\\b", "\\breadme\\b"],
-        "pathPatterns": ["**/docs/**", "**/*.md", "**/README*"],
-        "intentPatterns": [
-          "(?:write|add|update).*(?:doc|documentation)",
-          "(?:document).*(?:function|component|api)"
-        ]
-      }
-    },
-    "typescript-conventions": {
-      "description": "TypeScript strict mode and conventions",
-      "priority": 5,
-      "triggers": {
-        "keywords": ["typescript", "type", "interface", "generic", "strict mode"],
-        "keywordPatterns": ["\\btype\\b", "\\binterface\\b", "\\bgeneric\\b"],
-        "pathPatterns": ["**/*.d.ts", "**/types/**", "**/types.ts"],
-        "intentPatterns": [
-          "(?:define|create).*(?:type|interface)",
-          "(?:type).*(?:error|issue)"
-        ],
-        "contentPatterns": ["interface ", "type ", ": unknown", "as const"]
-      },
-      "excludePatterns": ["issue type", "type of bug"]
-    },
-    "verification-before-completion": {
-      "description": "Evidence-based completion claims protocol",
-      "priority": 8,
-      "triggers": {
-        "keywords": ["verify", "check", "confirm", "done", "complete", "finished"],
-        "intentPatterns": [
-          "(?:is it|are we).*(?:done|complete|finished)",
-          "(?:verify|check|confirm).*(?:works|passes)"
-        ],
-        "contextPatterns": ["before claiming", "make sure", "double check"]
-      }
-    },
-    "defense-in-depth": {
-      "description": "Multi-layer validation for bug prevention",
-      "priority": 6,
-      "triggers": {
-        "keywords": ["validation", "guard", "defense", "layer", "prevent"],
-        "intentPatterns": [
-          "(?:prevent|avoid).*(?:bug|error|issue)",
-          "(?:add).*(?:validation|guard|check)"
+        "contentPatterns": [
+          "useState",
+          "useEffect",
+          "useCallback",
+          "useMemo"
         ]
       },
-      "relatedSkills": ["systematic-debugging"]
+      "excludePatterns": [
+        "test",
+        "jest"
+      ]
     }
   }
 }

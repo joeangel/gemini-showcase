@@ -84,7 +84,12 @@ gh pr create         # Create PR
 This project enables Gemini agentic workflows via GitHub Actions:
 
 - **Review**: Auto-reviews PRs. Trigger via `/review`.
+  - **Two-Stage**: Checks requirements (Spec Compliance) before Code Quality.
 - **Fix**: Auto-fixes issues. Trigger via `/fix`.
+  - **Styles**: Supports `triage_tdd_level: strict` for Iron Law TDD.
+- **Plan**: Breaks down tasks. Trigger via `/plan`.
+  - **Modes**: `context-aware` (V1) or `strict-isolation` (V2).
+- **Execute**: (Experimental) Runs V2 plans via isolated subagents.
 - **Triage**: Auto-labels issues. Trigger via `/triage`.
 - **Chat**: Mention `@gemini` in any comment to chat.
 

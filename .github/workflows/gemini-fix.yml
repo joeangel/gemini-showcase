@@ -15,6 +15,11 @@ on:
         required: false
         type: string
         description: 'Optional user prompt'
+      triage_tdd_level:
+        description: 'TDD enforcement level: "advisory" (default) or "strict"'
+        required: false
+        type: string
+        default: 'advisory'
 
 permissions:
   contents: write
@@ -77,10 +82,26 @@ jobs:
             You are the Gemini Issue Fixer. You are fixing Issue #${{ inputs.issue_number }}.
             
             USER PROMPT: "${{ inputs.prompt }}"
+            TDD LEVEL: "${{ inputs.triage_tdd_level }}"
             
             INSTRUCTIONS:
             1. Analyze the issue description.
             2. Explore the codebase to locate the bug.
+            
+            ### TDD Guidelines (${{ inputs.triage_tdd_level }})
+            
+            **Advisory Anti-Patterns**:
+            - "The Liar": Tests pass but don't test behavior.
+            - "The Follower": Writing tests after code.
+            - "The Giant": One huge test.
+            
+            **STRICT MODE (Iron Law)**:
+            If `TDD LEVEL` is "strict", you MUST NOT write any fix code without a failing test.
+            - 1. Create a reproduction test case that fails.
+            - 2. Verify it fails (RED).
+            - 3. Fix the bug.
+            - 4. Verify it passes (GREEN).
+            
             3. **CRITICAL**: Use the `smart_replace` tool to fix the bug. It uses fuzzy matching to be safer than standard tools.
             4. Verify your fix if possible (e.g. by considering tests).
             5. Commit and push your changes to a new branch `fix/issue-${{ inputs.issue_number }}`.

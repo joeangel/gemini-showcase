@@ -1,0 +1,38 @@
+name: '⚡️ Gemini Execute Plan (V2)'
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry Run (simulate execution)'
+        required: false
+        type: boolean
+        default: true
+
+jobs:
+  execute:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        if: hashFiles('package-lock.json') != ''
+        run: npm ci
+
+      - name: Execute Plan (V2)
+        env:
+          DRY_RUN: ${{ inputs.dry_run }}
+          TASK_FILE: 'task.md'
+        run: |
+          chmod +x .gemini/scripts/execute-plan.js
+          node .gemini/scripts/execute-plan.js

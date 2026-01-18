@@ -33,6 +33,35 @@ Update (or create) the `task.md` file in the appropriate location to reflect the
 - [ ] [Feature B] Testing <!-- id: 2 -->
 ```
 
+## Planning Modes
+
+### V1: Context-Aware (Default)
+**Goal**: Maximize context sharing between Planner and Executors.
+- **Enrich Tasks**: Don't just list *what* to do, but *where* and *how*.
+- **Pass Findings**: If you found a bug in `auth.ts`, the task should be:
+  `- [ ] Fix auth bug in `auth.ts` (Found: token expiry logic is inverted)`
+- **Cite Files**: Always mention specific file paths so the Executor knows where to start.
+
+### V2: Strict Isolation (Mode: `strict-isolation`)
+**Goal**: Create self-contained sub-agent definitions.
+- **Independent Context**: Assume the Executor will have NO prior context of this plan.
+- **Detailed Prompts**: Each task must be a mini-prompt.
+- **Format**:
+  Use a structured block for each task to ensure the executor can parse it precisely.
+  ```markdown
+  - [ ] **Auth Service Refactor**
+    <!-- type: subagent-task -->
+    <task_context>
+    The current JWT logic in `utils/auth.js` leaks memory because of detached timers.
+    </task_context>
+    <task_objective>
+    Rewrite `generateToken` to clear timers.
+    </task_objective>
+    <task_constraints>
+    Must pass `npm test auth`.
+    </task_constraints>
+  ```
+
 ## Guidelines
 - **Be Specific**: Avoid vague tasks like "Fix code". Use "Update `auth.ts` to handle JWT expiry".
 - **Logical Order**: dependencies first.

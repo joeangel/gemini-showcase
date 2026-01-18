@@ -13,6 +13,62 @@ Never apply symptom-focused patches that mask underlying problems. Understand WH
 
 ## The Four-Phase Framework
 
+```dot
+digraph Debugging {
+  rankdir=TB;
+  node [shape=box, style=filled, fillcolor=white];
+  
+  Start [label="Start: Bug Reported", shape=oval, fillcolor=lightgrey];
+  
+  subgraph cluster_0 {
+    label = "Phase 1: Root Cause";
+    style=filled;
+    color=lightgrey;
+    Trace [label="Trace to Origin"];
+  }
+
+  subgraph cluster_1 {
+    label = "Phase 2: Pattern Analysis";
+    style=filled;
+    color=lightgrey;
+    Compare [label="Compare w/ Working State"];
+  }
+
+  subgraph cluster_2 {
+    label = "Phase 3: Scientific Method";
+    style=filled;
+    color=lightgrey;
+    Hypothesis [label="Form Hypothesis"];
+    TestHy [label="Test Hypothesis"];
+  }
+
+  subgraph cluster_3 {
+    label = "Phase 4: Implementation";
+    style=filled;
+    color=lightgrey;
+    FailTest [label="Write Failing Test"];
+    Fix [label="Implement Fix"];
+    Verify [label="Verify Fix"];
+  }
+
+  Start -> Trace;
+  Trace -> Compare;
+  Compare -> Hypothesis;
+  Hypothesis -> TestHy;
+  
+  TestHy -> Hypothesis [label="Wrong"];
+  TestHy -> FailTest [label="Verified"];
+  
+  FailTest -> Fix;
+  Fix -> Verify;
+  
+  Verify -> Hypothesis [label="Fix Fails"];
+  Verify -> End [label="Success"];
+  
+  End [label="Stop: Bug Fixed", shape=oval, fillcolor=lightgreen];
+}
+```
+
 ### Phase 1: Root Cause Investigation
 
 Before touching any code:

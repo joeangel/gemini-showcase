@@ -15,6 +15,11 @@ on:
         description: 'The refactoring request'
         required: true
         type: string
+      triage_tdd_level:
+        description: 'TDD enforcement level: "advisory" (default) or "strict"'
+        required: false
+        type: string
+        default: 'advisory'
     secrets:
       GEMINI_API_KEY:
         required: true
@@ -74,6 +79,8 @@ jobs:
             
             USER REQUEST:
             "${{ inputs.prompt }}"
+            
+            TDD LEVEL: "${{ inputs.triage_tdd_level }}"
             
             INSTRUCTIONS:
             1. Read the user request carefully.
